@@ -60,13 +60,12 @@ public class Account {
 		balance -= amount;
 	}
 
-	public String validateWithdrawl (double amount) {
+	private void validateWithdrawl (double amount) {
 		if(amount > getWithdrawalLimit()) {
 			throw new BusinessException("Withdrawl error: The amount exceeds withdraw limit");
 		} 
 		if(amount > getBalance()) {
 			throw new BusinessException("Withdrawl error: Not enough balance");
-		}
-		return holder;
+		} 
 	}
 }

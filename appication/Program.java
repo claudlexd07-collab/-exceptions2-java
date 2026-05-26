@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import ud19.model.entities.Account;
+import ud19.model.exceptions.BusinessException;
 
 public class Program {
 
@@ -29,13 +30,12 @@ public class Program {
 		System.out.print("Enter amount for withdrawl: ");
 		double amount = sc.nextDouble();
 
-		String error = acc.validateWithdrawl(amount);
-		if(error != null) {
-			System.out.println(error);
-		}
-		else {
+		try {
 			acc.withdrawl(amount);
 			System.out.printf("New balance: %.2f%n" , acc.getBalance());
+		}
+		catch(BusinessException e) {
+			System.out.println(e.getMessage());
 		}
 
 		sc.close();
