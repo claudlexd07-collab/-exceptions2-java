@@ -1,12 +1,14 @@
 package ud19.model.entities;
 
+import ud19.model.exceptions.BusinessException;
+
 public class Account {
 
 	private Integer number;
 	private String holder;
 	private Double balance;
 	private Double withdrawalLimit;
-	
+
 	public Account() {
 	}
 
@@ -48,12 +50,23 @@ public class Account {
 	public void setWithdrawalLimit(Double withdrawalLimit) {
 		this.withdrawalLimit = withdrawalLimit;
 	}
-	
+
 	public void deposit(double amount) {
 		balance += amount;
 	}
-	
+
 	public void withdrawl(double amount) {
+		validateWithdrawl(amount);
 		balance -= amount;
+	}
+
+	public String validateWithdrawl (double amount) {
+		if(amount > getWithdrawalLimit()) {
+			throw new BusinessException("Withdrawl error: The amount exceeds withdraw limit");
+		} 
+		if(amount > getBalance()) {
+			throw new BusinessException("Withdrawl error: Not enough balance");
+		}
+		return holder;
 	}
 }
